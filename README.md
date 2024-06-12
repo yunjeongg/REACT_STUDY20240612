@@ -1,3 +1,31 @@
+# 리액트 프로젝트 시작하기
+
+1. nodejs 설치
+2. create-react-app 설치 (최초1번)
+
+```
+$ npm install -g create-react-app
+```
+
+3. react프로젝트 생성
+
+```
+$ npx create-react-app 프로젝트이름
+```
+
+4. react 프로젝트 실행
+만약 해당 react 프로젝트가 git에서 clone 받은 후 터미널에 npm install 작성해줘야 한다.
+(node_modules 폴더가 용량이 커서 .gitignore 목록에 올라가 있기 때문이다.)
+
+```
+$ cd 프로젝트폴더
+$ npm start
+```
+
+5. git에서 clone 받은 후 터미널에 npm install 작성해줘야 한다. 
+
+- http://localhost:3000 에서 프론트엔드 서버 실행
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
