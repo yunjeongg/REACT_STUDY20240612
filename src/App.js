@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react';
+import Hello from './components/Hello';
+import Bye from './components/Bye';
+import Greet from './components/Greet';
 
 function App() {
   
@@ -19,18 +22,15 @@ function App() {
 
   // jsx 태그 자동완성
   // https://doishalf.tistory.com/59
-  
+
+  // 플러그인에서 아래 설치
+  // ES7+ React/Redux/React-Native snippets
+
   return (
     <React.Fragment>
-      <div className="App">
-        <h1>{hello}</h1>
-        {/* <h2>방가방가햄토리</h2> */}
-        {$h2}
-      </div>
-      <div className='noname'>
-        <input type='text' />
-        <label htmlFor=''></label>
-      </div>
+      <Hello/>
+      <Bye/>
+      <Greet/>
     </React.Fragment>
   );
 }
