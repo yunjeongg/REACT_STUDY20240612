@@ -3,40 +3,23 @@ import "./ExpenseItem.css";
 import ExpenseDate from "./ExpenseDate";
 import Card from "../UI/Card";
 
-// Props
-// 파라미터로 받을 때 두 가지 방법이 있다.
-// 1.
-// const ExpenseItem = (aaa) => {
-
-// 2. aaa. 안붙이고싶을 때
 const ExpenseItem = ({ date, title, price: exPrice }) => {
-  // console.log('props: ', aaa);
-
-  // 변수 선언
-  // const expenseDate = aaa.date;
-  // const expenseTitle = aaa.title;
-  // const expensePrice = aaa.price;
-
-  // 함수 선언
-
-  // 1자리 숫자를 2자리수로 변환하는 함수
-  const make2digit = (text) => {
-    return text.toString().padStart(2, "0");
-  };
-
-  const makeFormattedDate = () => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate();
-
-    return `${year}년 ${make2digit(month)}월 ${make2digit(day)}일`;
-  };
 
   // 원화 표기법으로 변환
   const formattedPrice = new Intl.NumberFormat("ko-KR").format(exPrice);
 
-  // 아래 <ExpenseDate exDate={date} />
-  // date 를 exDate 이름으로 ExpenseDate.js 에 전달하겠다는 뜻.
+  // 1. 리액트에서 기본적으로 태그가 생성되어있지 않기 때문에 이런식으로는 특정태그를 잡아올 수 없다.
+  // const $btn = document.getElementById("btn");
+  // console.log('btn', $btn);
+
+  // 2. 이벤트 핸들러 선언
+  // 핸들러 안에서는 태그들이 다 생성되어 있는 상태이기 때문에 정상작동
+  const clickHandler = e => {
+    console.log("클릭클릭");
+    console.log(e.target.previousElementSibling.firstElementChild.textContent);
+  }
+
+  // 3. 아래 버튼태그에 인라인속성 onClick={clickHandler} 달아준다. (호출아님)
 
   return (
       <Card className="expense-item">
@@ -45,6 +28,9 @@ const ExpenseItem = ({ date, title, price: exPrice }) => {
         <h2>{title}</h2>
         <div className="expense-item__price">{formattedPrice}원</div>
       </div>
+      <button id="btn" onClick={clickHandler}>버튼</button>
+      <button id="btn2" onMouseOver={e => alert('하하')}>버튼2</button>
+
     </Card>
   );
 };
