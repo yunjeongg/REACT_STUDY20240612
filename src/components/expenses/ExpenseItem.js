@@ -1,6 +1,7 @@
 import React from "react";
 import "./ExpenseItem.css";
 import ExpenseDate from "./ExpenseDate";
+import Card from "../UI/Card";
 
 // Props
 // 파라미터로 받을 때 두 가지 방법이 있다.
@@ -36,15 +37,15 @@ const ExpenseItem = ({ date, title, price: exPrice }) => {
 
   // 아래 <ExpenseDate exDate={date} />
   // date 를 exDate 이름으로 ExpenseDate.js 에 전달하겠다는 뜻.
-  
+
   return (
-    <div className="expense-item">
+      <Card className="expense-item">
       <ExpenseDate exDate={date} />
       <div className="expense-item__description">
         <h2>{title}</h2>
         <div className="expense-item__price">{formattedPrice}원</div>
       </div>
-    </div>
+    </Card>
   );
 };
 

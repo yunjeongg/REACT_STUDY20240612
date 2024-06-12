@@ -2,12 +2,13 @@ import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
 import ExpenseList from "./components/expenses/ExpenseList";
+import Greet from "./components/Greet";
 
-// Props
-// 컴포넌트 간에 데이터를 전달하는 메커니즘
-// 단방향데이터흐름을 지원하는데 부모 -> 자식 컴포넌트로 전달된다.
-// 속성에 값을 넣어주고, componenet 함수의 파라미터로 받을 수 있다.
-// 속성을 보낼 때 반드시 {} 를 붙여야 하지만 문자열만 생략가능
+// Props Children
+// 적용할 컴포넌트 태그들의 오프닝, 클로징태그로 children 태그를 넣어주고, 
+// 속성과 값을 넣어주면
+// children 태그 컴포넌트에서 파라미터로 받아주면 접근할 수 있다.
+
 const App = () => {
   // 서버에서 지출항목 JSON 배열을 응답받았다고 가정했을 때
   const expenses = 
