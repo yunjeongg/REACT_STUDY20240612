@@ -32,10 +32,23 @@ const App = () => {
       price: 12000,
       date: new Date(2024, 1 - 1, 22)
     }
-  ]
+  ];
+
+  // ExpenseForm 에게 내려보낼 함수
+  // onAddExpense - onSave - onAdd 로 ExpenseForm.js 에 전달
+  const onAddExpense = (userInput) => {
+    // ExpenseForm - NewExpense - App 로 내려보냈던 함수 다시 받음
+    // 함수 매개변수 자리에 받은 매개변수 입력
+    console.log('App.js 가 내려보낸 함수 호출!');
+    console.log(userInput);
+
+    expenses.push(userInput);
+    console.log(expenses);
+  };
+
   return (
     <>
-      <CheckBoxStyle />
+      <NewExpense onSave={onAddExpense} />
       <ExpenseList expenses={expenses} />
     </>
   );

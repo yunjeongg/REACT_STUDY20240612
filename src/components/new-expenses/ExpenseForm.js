@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onAdd }) => {
 
   // 오늘 날짜를 YYYY-MM-DD 형식으로 가져오는 함수
   const getTodayDate = () => {
@@ -84,6 +84,10 @@ const ExpenseForm = () => {
     // };
 
     console.log(userInput);
+
+    // App.js에게 받은 함수를 호출
+    // 매개변수자리에 userInput 를 넣어 App.js에 다시 보내기
+    onAdd(userInput);
 
     // form input 비우기
     setUserInput ({
