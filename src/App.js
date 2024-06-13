@@ -3,6 +3,7 @@ import "./App.css";
 import React from "react";
 import ExpenseList from "./components/expenses/ExpenseList";
 import Greet from "./components/Greet";
+import Counter from "./components/practice/Counter";
 
 // Props Children
 // 적용할 컴포넌트 태그들의 오프닝, 클로징태그로 children 태그를 넣어주고, 
@@ -32,6 +33,7 @@ const App = () => {
   ]
   return (
     <>
+      <Counter />
       <ExpenseList expenses={expenses} />
     </>
   );
