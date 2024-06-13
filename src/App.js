@@ -25,12 +25,22 @@ const App = () => {
     {
       title: '치킨찍찍',
       price: 35000,
-      date: new Date(2024, 3 - 1, 18)
+      date: new Date(2023, 3 - 1, 18)
     }, 
     {
       title: '돈가스쩝쩝',
       price: 12000,
-      date: new Date(2024, 1 - 1, 22)
+      date: new Date(2021, 1 - 1, 22)
+    },
+    {
+      title: '파파피자',
+      price: 40000,
+      date: new Date(2022, 10 - 1, 2)
+    },
+    {
+      title: '엄마손칼국수',
+      price: 8000,
+      date: new Date(2020, 12 - 1, 25)
     }
   ];
 
