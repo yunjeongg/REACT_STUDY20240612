@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import ExpenseList from "./components/expenses/ExpenseList";
 import Greet from "./components/Greet";
 import Counter from "./components/practice/Counter";
@@ -44,22 +44,16 @@ const App = () => {
     }
   ];
 
-  // ExpenseForm 에게 내려보낼 함수
-  // onAddExpense - onSave - onAdd 로 ExpenseForm.js 에 전달
-  const onAddExpense = (userInput) => {
-    // ExpenseForm - NewExpense - App 로 내려보냈던 함수 다시 받음
-    // 함수 매개변수 자리에 받은 매개변수 입력
-    console.log('App.js 가 내려보낸 함수 호출!');
-    console.log(userInput);
+  // 배열을 상태변수로 관리
+  const [expenseList, setExpenseList] = useState(expenses); 
 
-    expenses.push(userInput);
-    console.log(expenses);
-  };
+  // ExpenseForm에게 내려보낼 함수
+  const onAddExpense = (userInput) => setExpenseList([...expenseList, userInput]);
 
   return (
     <>
       <NewExpense onSave={onAddExpense} />
-      <ExpenseList expenses={expenses} />
+      <ExpenseList expenses={expenseList} />
     </>
   );
 };
