@@ -2,17 +2,25 @@ import React from "react";
 
 import "./ChartBar.css";
 
-const ChartBar = () => {
+const ChartBar = ({label}) => {
+
+  // // 인라인 스타일 객체
+  // const fillStyle = {
+  //   height: '60%'
+  // };
+
+  // 인라인 스타일 객체 계산
+  let barFillHeight = '70%';
 
   
   return (
     <div className="chart-bar">
       <div className="chart-bar__inner">
-        <div
-          className="chart-bar__fill"
-        ></div>
+        <div className="chart-bar__fill" style={{ height:barFillHeight}}>
+
+        </div>
       </div>
-      <div className="chart-bar__label"></div>
+      <div className="chart-bar__label">{label}</div>
     </div>
   );
 };
