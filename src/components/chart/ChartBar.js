@@ -2,7 +2,7 @@ import React from "react";
 
 import "./ChartBar.css";
 
-const ChartBar = ({label}) => {
+const ChartBar = ({label, currentMonthValue, totalValue}) => {
 
   // // 인라인 스타일 객체
   // const fillStyle = {
@@ -10,7 +10,12 @@ const ChartBar = ({label}) => {
   // };
 
   // 인라인 스타일 객체 계산
-  let barFillHeight = '70%';
+  let barFillHeight = '0%';
+
+  if(totalValue > 0) {
+    const percentage = (currentMonthValue / totalValue) * 100;
+    barFillHeight = percentage + '%';
+  }
 
   
   return (
