@@ -43,16 +43,15 @@ const CourseInput = ({ onAdd }) => {
 
     }
     setEnteredText(e.target.value)};
+
+    // 동적클래스 사용의 단점
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className="form-control">
+      <div className={`form-control ${isValid ? '' : 'invalid'}`}>
         <label>나의 목표</label>
         <input type="text" 
           onChange={goalChangeHandler} 
           value={enteredText} 
-          // 바깥 {} 는 문법, 안쪽 {} 는 객체를 의미
-          style={{backgroundColor: isValid ? 'transparent' : 'salmon',  // 유효할 경우 투명, 아니면 연어색
-                  borderColor: isValid ? 'black' : 'red'}}
         />
       </div>
       <Button type="submit">목표 추가하기</Button>
