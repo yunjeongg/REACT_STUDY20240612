@@ -4,6 +4,28 @@ import Button from '../UI/Button';
 
 const CourseInput = ({ onAdd }) => {
 
+  // 바닐라 스크립트 렌더링 성능최적화 할 때
+  const foo = () => {
+
+    const arr = [1,2,3,4,5,6,700000000];
+
+    // 렌더링이 된 요소
+    const $ul = document.querySelector('ul.abc');
+
+    // 중간 가상 DOM 생성
+    const $div = document.createDocumentFragment();
+
+    arr.forEach(n => {
+      // 아직 렌더링이 되지 않은 요소 : virtual DOM
+      const $li = document.createElement('li');
+      $li.textContent = n;
+      // 렌더링된 곳에 렌더링되지않은 요소를 추가 : 성능상 좋지 않다.
+      $div.appendChild($li);
+    });
+
+    $ul.appendChild($div);
+  };
+
   console.log('s: ', styles);
 
   // "form-control" -는 자바스크립트에서 사용불가이기 때문에 formControl 로 바꿔주기
