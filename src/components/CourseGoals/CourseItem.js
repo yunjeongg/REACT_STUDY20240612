@@ -1,5 +1,6 @@
 import React from 'react'
-import './CourseItem.css';
+// 1. './CourseItem.module.css' 의 변수명으로 styles 선언
+import styles from './CourseItem.module.css';
 
 const CourseItem = ({ item, onDelete }) => {
 
@@ -11,8 +12,10 @@ const CourseItem = ({ item, onDelete }) => {
     onDelete(item.id);
 
   }
+
+  // 2. 클래스이름에 {css파일의 변수명['css파일 내 적용경로']} 로 작성하기
   return (
-    <li className='goal-item' onClick={deleteHandler}> {item.text} </li>
+    <li className={styles['goal-item']} onClick={deleteHandler}> {item.text} </li>
   )
 }
 
