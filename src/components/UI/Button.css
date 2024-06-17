@@ -1,3 +1,4 @@
+/* .button 이라는 클래스명은 쓰는 사람이 많아서 충돌 가능성이 있다. */
 .button {
   font: inherit;
   padding: 0.5rem 1.5rem;
