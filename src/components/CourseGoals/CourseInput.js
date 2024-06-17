@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import './CourseInput.css';
+import styles from './CourseInput.module.css';
 import Button from '../UI/Button';
 
 const CourseInput = ({ onAdd }) => {
+
+  console.log('s: ', styles);
+
+  // "form-control" -는 자바스크립트에서 사용불가이기 때문에 formControl 로 바꿔주기
+  const { invalid, "form-control" : formControl } = styles;
 
   // 나의 목표 <input>태그에 입력한 값
   const [enteredText, setEnteredText] = useState('');
@@ -44,10 +49,14 @@ const CourseInput = ({ onAdd }) => {
     }
     setEnteredText(e.target.value)};
 
-    // 동적클래스 사용의 단점
+    // <div className={`${formControl} ${!isValid && invalid}`}>
+    // && 의 단축평가
+    // 왼쪽이 true면 오른쪽 사용
+    // 왼쪽이 false 면 오른쪽 무시
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className={`form-control ${isValid ? '' : 'invalid'}`}>
+      <div className={`${formControl} ${!isValid ?invalid : ''}`}>
+
         <label>나의 목표</label>
         <input type="text" 
           onChange={goalChangeHandler} 
