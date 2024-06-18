@@ -7,12 +7,42 @@ import Login from './components/SideEffect/Login';
 
 const App = () => {
 
+  // 현재 로그인 상태를 체크하는 변수
+  const [isLoggedIn, setIsloggedIn] = useState(false); // 처음은 로그인 안한 상태 false
+
+  console.log("로그인 검사 수행");
+
+  // localStorage 에서 login-flag 를 꺼내기
+  const storedLoginFlag = localStorage.getItem('login-flag');
+
+  // 로그인 검사를 초기에 한번만 수행
+  if (storedLoginFlag == '1') {
+    // 상태변수가 setter 로 변경되면 리액트는 변경감지 후 바로 리랜더링을 수행한다.
+    setIsloggedIn(true);
+  }
+
+  // 서버통신은 중앙집중 관리가 중요하다.
+  // 로그인을 위한 요청이라 로그인 컨포넌트에서 만들수도 있지만
+  // 서버와 소통할 때는 제일 상위 컨포넌트에서 집중적으로 하는것이 좋다.
+  const loginHandler = (email, password) => {
+
+    // 로그인 검증과정 했다 치고
+
+    // 로그인의 증거로 클라이언트에 1이라는 숫자를 기록
+    localStorage.setItem('login-flag', '1');
+
+    setIsloggedIn(true); // 로그인 한 상태로 바꿔주기
+  };
+
   return (
     <>
       <MainHeader />
       <main>
-        {/* <Home /> */}
-        <Login />
+        {/* 로그인이 된 상태면 <Home />을 보여주고 */}
+        { isLoggedIn && <Home />}
+
+        {/* 그렇지않다면 <Login onLogin={loginHandler} */}
+        { !isLoggedIn && <Login onLogin={loginHandler} />}
       </main>
     </>
   );

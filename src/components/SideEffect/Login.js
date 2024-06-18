@@ -46,6 +46,7 @@ const Login = ({ onLogin }) => {
   // 로그인 버튼 눌렀을 때 onLogin 함수에 두 파라미터 전달
   const submitHandler = (e) => {
     e.preventDefault();
+    // App.js 에서 받은 로그인핸들러 호출
     onLogin(enteredEmail, enteredPassword);
   };
 
