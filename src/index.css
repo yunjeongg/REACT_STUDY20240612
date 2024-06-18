@@ -8,5 +8,8 @@ html {
 
 body {
   margin: 0;
-  background: rgb(111, 214, 162);
+}
+
+main {
+  margin-top: 6rem;
 }
