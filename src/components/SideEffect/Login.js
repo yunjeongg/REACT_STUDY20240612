@@ -6,7 +6,7 @@ import Button from '../UI/Button';
 
 const Login = ({ onLogin }) => {
 
-  console.log("랜더링 수행! ");
+  // console.log("랜더링 수행! ");
 
   // 사용자가 입력한 이메일을 상태관리
   const [enteredEmail, setEnteredEmail] = useState('');
@@ -54,15 +54,32 @@ const Login = ({ onLogin }) => {
   // 3. [] 배열 안에 값 넣으면 값이 변할 때마다 작동
   // 4. 결론설명 - 교안의 결론 3개
   useEffect (() => {
-    console.log('useEffect call in Login.js ');
 
-    // 실행하겠다
+    const timer = setTimeout(() => {
+      console.log('useEffect call in Login.js ');
+
+      // 실행하겠다
     setFormIsValid(
       enteredPassword.trim().length > 6 && enteredEmail.includes('@')
     );
+    }, 1000);
+
+    return () => {
+      // clean up 함수는 컴포넌트가 업데이트 되거나 사라지기 전에 실행한다.
+      // 그렇기 때문에 변경 전의 enteredEmail 을 갖고있다.
+      // console.log('cleanup: ', enteredEmail);
+
+      // Debouncing, Throttling 에 많이 사용한다.
+      // 입력시 마다 바로 호출하는 것이 아니라 기다렸다가 호출
+
+      // 
+      clearTimeout(timer);
+    };
 
     // 아래 배열의 값이 바뀔 때 마다
   }, [enteredEmail, enteredPassword])
+
+  console.log('render: ', enteredEmail);
 
   return (
     <Card className={styles.login}>
