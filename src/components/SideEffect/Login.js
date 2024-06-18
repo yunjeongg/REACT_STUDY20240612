@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Card from '../UI/Card';
 import styles from './Login.module.css';
 import Button from '../UI/Button';
 
 const Login = ({ onLogin }) => {
+
+  console.log("랜더링 수행! ");
+
   // 사용자가 입력한 이메일을 상태관리
   const [enteredEmail, setEnteredEmail] = useState('');
   // 이메일 입력값이 정상인지 유무 확인 (true & false)
@@ -20,19 +23,10 @@ const Login = ({ onLogin }) => {
   // 이메일을 입력할 때 마다 입력값이 등록
   const emailChangeHandler = (e) => {
     setEnteredEmail(e.target.value);
-
-    // 이메일에 @ 가 포함되어있고, 비밀번호가 좌우공백제외 6글자 이상
-    setFormIsValid(
-      e.target.value.includes('@') && enteredPassword.trim().length > 6
-    );
   };
 
   const passwordChangeHandler = (e) => {
     setEnteredPassword(e.target.value);
-
-    setFormIsValid(
-      e.target.value.trim().length > 6 && enteredEmail.includes('@')
-    );
   };
 
   const validateEmailHandler = () => {
@@ -43,12 +37,32 @@ const Login = ({ onLogin }) => {
     setPasswordIsValid(enteredPassword.trim().length > 6);
   };
 
+
   // 로그인 버튼 눌렀을 때 onLogin 함수에 두 파라미터 전달
   const submitHandler = (e) => {
     e.preventDefault();
     // App.js 에서 받은 로그인핸들러 호출
     onLogin(enteredEmail, enteredPassword);
   };
+
+  // 1. 맨 뒤에 [] 배열을 안 넣으면 계속 작동
+  // useEffect (() => {
+  //   console.log('useEffect call in Login.js ');
+  // })
+
+  // 2. [] 배열을 비워놓으면 최초 한번만 작동
+  // 3. [] 배열 안에 값 넣으면 값이 변할 때마다 작동
+  // 4. 결론설명 - 교안의 결론 3개
+  useEffect (() => {
+    console.log('useEffect call in Login.js ');
+
+    // 실행하겠다
+    setFormIsValid(
+      enteredPassword.trim().length > 6 && enteredEmail.includes('@')
+    );
+
+    // 아래 배열의 값이 바뀔 때 마다
+  }, [enteredEmail, enteredPassword])
 
   return (
     <Card className={styles.login}>
