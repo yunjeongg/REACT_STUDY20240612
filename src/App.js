@@ -56,9 +56,10 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={{
-      isLoggedIn: isLoggedIn
+      isLoggedIn: isLoggedIn,
+      onLogout: logoutHandler
     }}>
-      <MainHeader onLogout={logoutHandler} />
+      <MainHeader />
       <main>
         {/* 로그인이 된 상태면 <Home />을 보여주고 */}
         { isLoggedIn && <Home />}

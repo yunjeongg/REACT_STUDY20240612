@@ -7,7 +7,11 @@ const AuthContext = React.createContext(
   // - 생성시 관리할 기본 데이터를 명시한다.
   // 데이터 값은 타입 기본값을 명시한다.
   {
-    isLoggedIn: false // isLoggedIn 을 관리
+    // 관리할 데이터의 타입은 null을 넣어줘도 되지만, 타입기본데이터를 넣으면 에디터에서 자동완성이 된다.
+    
+    isLoggedIn: false, // isLoggedIn 을 관리
+
+    onLogout: () => {} // onLogout 의 타입은 함수다.
   }
 );
 
