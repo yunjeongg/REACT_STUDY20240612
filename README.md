@@ -30,6 +30,16 @@ $ npm start
 1. styled-components: 동적 css 처리를 도와주는 라이브러리
 - `$ npm install styled-components`
 
+2. bootstrap, reactstrap : CSS 라이브러리 
+- `$ npm install bootstrap reactstrap`
+
+3. sass : CSS 확장문법 라이브러리 
+- `$ npm install sass`
+
+4. React icons 사용
+- `$ npm install react-icons`
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
