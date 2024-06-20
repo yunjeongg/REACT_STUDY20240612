@@ -39,7 +39,9 @@ const TimerChallenge = ({ title, targetTime }) => {
 
   return (
     <>
-      <ResultModal targetTime={targetTime} result="lost" />
+      {/* 타이머가 만료되었을 때 모달창 띄우기 */}
+      {<ResultModal targetTime={targetTime} result="lost" />}
+
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
