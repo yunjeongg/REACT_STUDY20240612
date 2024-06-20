@@ -1,5 +1,6 @@
 import React from 'react';
 import Player from './components/Ref/Player';
+import TimerChallenge from './components/Ref/TimerChallenge';
 
 const App = () => {
 
@@ -7,6 +8,7 @@ const App = () => {
     <>
       <Player />
       <div id="challenges"></div>
+      <TimerChallenge />
     </>
   );
 };
