@@ -36,10 +36,24 @@ const TodoTemplate = () => {
     setTodoList(prevTodoList => [...prevTodoList, newTodo]);
   };
 
+  // 삭제를 위한 id 끌어올리기
+  const removeTodo = id => {
+    // 필터링을 통한 제거
+    // 필터함수는 기본적으로 원본배열이 아닌, 복사된 배열을 주기 때문에 배열복사하지않아도 된다.
+
+    // 아이디가 같지않은 것들만 모아놓는다 -> 같으면 삭제
+    setTodoList(todoList.filter(todo => todo.id !== id));
+
+    // 서버와 연동했을 경우
+    // const res = await fetch(url, {method:'DELETE'});
+    // const todoList = await res.json();
+    // setTodoList(todoList);
+  };
+
   return (
     <div className='TodoTemplate'>
       <TodoHeader />
-      <TodoMain todos={todoList} />
+      <TodoMain todos={todoList} onRemove={removeTodo} />
       <TodoInput onAdd={addTodo} />
     </div>
   );
