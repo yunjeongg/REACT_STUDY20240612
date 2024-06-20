@@ -71,10 +71,13 @@ const TodoTemplate = () => {
     // ));
   };
 
+  // 남은 할 일 개수 세기
+  const countRestTodo = todoList.filter(todo => !todo.done).length; // todo.done 이 false 인 것의 개수
+
 
   return (
     <div className='TodoTemplate'>
-      <TodoHeader />
+      <TodoHeader count={countRestTodo} />
       <TodoMain 
             todos={todoList} 
             onRemove={removeTodo} 
