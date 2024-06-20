@@ -1,38 +1,34 @@
 import React, { useRef, useState } from 'react';
 import ResultModal from './ResultModal';
 
-// let timer; // setTimeout 의 참조변수, 위치 전역으로 이동!
-
 const TimerChallenge = ({ title, targetTime }) => {
-
-  // 해결방법
-  // timer 를 ref변수로 관리하기
-  // 랜더링이 아닌 컴포넌트 안의 값을 유지하고 싶을 때 사용할 수도 있다.
+  // timer를 ref변수로 관리
   const timer = useRef();
 
-  // 자식 컴포넌트 ResultModal 에 있는 dialog 태그의 참조를 만들기
+  // 자식컴포넌트 ResultModal에 있는 dialog태그의 참조를 만듬
   const dialog = useRef();
 
+  // stop을 눌렀을 때 남은시간을 상태값으로 관리
+  const [timeRemaining, setTimeRemaining] = useState(targetTime * 1000);
 
-  // 타이머가 시작되었는지를 확인하는 상태값
-  const [timerStarted, setTimerStarted] = useState(false);
+  // start stop 활성화 조건
+  const timerIsActive = timeRemaining > 0 && timeRemaining < targetTime * 1000;
 
-  // 타겟시간이 종료되었는지 여부
-  const [timerExpired, setTimerExpired] = useState(false);
+  // 시간이 타임오버되었을 때 처리
+  if (timeRemaining <= 0) {
+    clearInterval(timer.current);
+    dialog.current.showModal();
+  }
 
   const startHandler = e => {
 
     // 1. 지역변수 timer 저장
-    timer.current = setTimeout(() => {
-      setTimerExpired(true);
+    timer.current = setInterval(() => {
 
-      // modal open
-      dialog.current.showModal();
+      setTimeRemaining(prevTime => prevTime - 10);
 
-    }, targetTime * 1000);
+    }, 10);
 
-    // 2. 리랜더링
-    setTimerStarted(true);
   };
 
   // 중지할 때 실행할 코드
@@ -40,13 +36,15 @@ const TimerChallenge = ({ title, targetTime }) => {
     console.log("stop");
 
     // 3. 서로 다른변수
-    clearTimeout(timer.current);
+    clearInterval(timer.current);
 
+    // stop눌렀을 때 모달창 뜨게하기
+    dialog.current.showModal();
   }
 
   return (
     <>
-      <ResultModal ref={dialog} targetTime={targetTime} result="lost"/>
+      <ResultModal ref={dialog} targetTime={targetTime} remainingTime={timeRemaining} result="lost"/>
 
       <section className="challenge">
         <h2>{title}</h2>
@@ -54,12 +52,12 @@ const TimerChallenge = ({ title, targetTime }) => {
           {targetTime} second{targetTime > 1 ? 's' : ''}
         </p>
         <p>
-        <button onClick={timerStarted ? stopHandler : startHandler}>
-          {timerStarted ? 'Stop' : 'Start'} Challenge
+        <button onClick={timerIsActive ? stopHandler : startHandler}>
+          {timerIsActive ? 'Stop' : 'Start'} Challenge
         </button>
         </p>
-        <p className={timerStarted ? 'active' : undefined}>
-          {timerStarted ? 'Time is running...' : 'Timer inactive'}
+        <p className={timerIsActive ? 'active' : undefined}>
+          {timerIsActive ? 'Time is running...' : 'Timer inactive'}
         </p>
       </section>
     </>
