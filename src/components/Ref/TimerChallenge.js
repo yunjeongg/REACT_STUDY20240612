@@ -1,20 +1,39 @@
-import React from 'react';
-import Player from './components/Ref/Player';
-import TimerChallenge from './components/Ref/TimeChallenge';
+import React, { useState } from 'react';
 
-const App = () => {
+const TimerChallenge = ({ title, targetTime }) => {
+
+  // 타이머가 시작되었는지를 확인하는 상태값
+  const [timerStarted, setTimerStarted] = useState(false);
+
+  // 타겟시간이 종료되었는지 여부
+  const [timerExpired, setTimerExpired] = useState(false);
+
+  const startHandler = e => {
+
+    setTimeout(() => {
+      setTimerExpired(true);
+    }, targetTime * 1000);
+
+    setTimerStarted(true);
+  };
 
   return (
-    <>
-      <Player />
-      <div id="challenges">
-        <TimerChallenge title='Easy' targetTime={1} />
-        <TimerChallenge title='Not Easy' targetTime={5} />
-        <TimerChallenge title='Getting tough' targetTime={10} />
-        <TimerChallenge title='Pros only' targetTime={15} />
-      </div>
-    </>
+    <section className="challenge">
+      <h2>{title}</h2>
+      {timerExpired && <p>You lost!</p>}
+      <p className="challenge-time">
+        {targetTime} second{targetTime > 1 ? 's' : ''}
+      </p>
+      <p>
+        <button onClick={startHandler}>
+          {timerStarted ? 'Stop' : 'Start'} Challenge
+        </button>
+      </p>
+      <p className={timerStarted ? 'active' : undefined}>
+        {timerStarted ? 'Time is running...' : 'Timer inactive'}
+      </p>
+    </section>
   );
 };
 
-export default App;
+export default TimerChallenge;

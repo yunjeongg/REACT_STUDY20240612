@@ -1,6 +1,6 @@
 import React from 'react';
 import Player from './components/Ref/Player';
-import TimerChallenge from './components/Ref/TimeChallenge';
+import TimerChallenge from './components/Ref/TimerChallenge';
 
 const App = () => {
 
