@@ -9,13 +9,13 @@ import './scss/TodoItem.scss';
 const TodoItem = ({ item }) => {
 
   const { title, done } = item;
-  
+
   return (
     <li className='todo-list-item'>
-      <div className='check-circle'>
+      <div className={`check-circle ${done ? 'active' : undefined}`}>
         {done && <MdDone/>}
       </div>
-      <span className='text'>{title}</span>
+      <span className={`text ${done ? 'finish' : undefined}`}>{title}</span>
       <div className='remove'>
         <MdDelete/>
       </div>
