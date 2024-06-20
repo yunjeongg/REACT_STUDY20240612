@@ -10,6 +10,9 @@ const TimerChallenge = ({ title, targetTime }) => {
   // 랜더링이 아닌 컴포넌트 안의 값을 유지하고 싶을 때 사용할 수도 있다.
   const timer = useRef();
 
+  // 자식 컴포넌트 ResultModal 에 있는 dialog 태그의 참조를 만들기
+  const dialog = useRef();
+
 
   // 타이머가 시작되었는지를 확인하는 상태값
   const [timerStarted, setTimerStarted] = useState(false);
@@ -22,6 +25,10 @@ const TimerChallenge = ({ title, targetTime }) => {
     // 1. 지역변수 timer 저장
     timer.current = setTimeout(() => {
       setTimerExpired(true);
+
+      // modal open
+      dialog.current.showModal();
+
     }, targetTime * 1000);
 
     // 2. 리랜더링
@@ -39,8 +46,7 @@ const TimerChallenge = ({ title, targetTime }) => {
 
   return (
     <>
-      {/* 타이머가 만료되었을 때 모달창 띄우기 */}
-      {<ResultModal targetTime={targetTime} result="lost" />}
+      <ResultModal ref={dialog} targetTime={targetTime} result="lost"/>
 
       <section className="challenge">
         <h2>{title}</h2>

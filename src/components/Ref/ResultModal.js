@@ -1,20 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { forwardRef } from 'react';
 
-const ResultModal = ({result, targetTime}) => {
+const ResultModalComponent = ({result, targetTime}, ref) => {
 
-  const dialog = useRef();
 
-  useEffect (() => {
-    dialog.current.showModal();
-  }, []);
-
-  // dialog태그의 기본 메소드를 통해 모달창 뒤 투명검은배경 띄우기
-
-  // dialog 태그
-  // https://developer.mozilla.org/ko/docs/Web/HTML/Element/dialog
   return (
-    <dialog ref={dialog} className="result-modal">
-      <h2>Your {result}</h2>
+    <dialog ref={ref} className="result-modal">
+      <h2>Your {result}!</h2>
       <p>The target time was <strong>{targetTime} seconds.</strong></p>
       <p>You stopped the timer with <strong>X seconds left.</strong></p>
       <form method="dialog">
@@ -23,5 +14,9 @@ const ResultModal = ({result, targetTime}) => {
     </dialog>
   );
 };
+
+// forwardRef 는 콜백으로 전달된 컴포넌트에 첫번째 파라미터로 props 를 전달하고
+// 두번째 파라미터로 부모에게 받은 ref를 전달한다.
+const ResultModal = forwardRef(ResultModalComponent);
 
 export default ResultModal;
