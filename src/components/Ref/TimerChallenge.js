@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import ResultModal from './ResultModal';
 
 // let timer; // setTimeout 의 참조변수, 위치 전역으로 이동!
 
@@ -37,21 +38,23 @@ const TimerChallenge = ({ title, targetTime }) => {
   }
 
   return (
-    <section className="challenge">
-      <h2>{title}</h2>
-      {timerExpired && <p>You lost!</p>}
-      <p className="challenge-time">
-        {targetTime} second{targetTime > 1 ? 's' : ''}
-      </p>
-      <p>
+    <>
+      <ResultModal targetTime={targetTime} result="lost" />
+      <section className="challenge">
+        <h2>{title}</h2>
+        <p className="challenge-time">
+          {targetTime} second{targetTime > 1 ? 's' : ''}
+        </p>
+        <p>
         <button onClick={timerStarted ? stopHandler : startHandler}>
           {timerStarted ? 'Stop' : 'Start'} Challenge
         </button>
-      </p>
-      <p className={timerStarted ? 'active' : undefined}>
-        {timerStarted ? 'Time is running...' : 'Timer inactive'}
-      </p>
-    </section>
+        </p>
+        <p className={timerStarted ? 'active' : undefined}>
+          {timerStarted ? 'Time is running...' : 'Timer inactive'}
+        </p>
+      </section>
+    </>
   );
 };
 
