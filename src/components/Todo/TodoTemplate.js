@@ -50,10 +50,36 @@ const TodoTemplate = () => {
     // setTodoList(todoList);
   };
 
+  // 아이디를 가져와 특정 할 일을 체크하기
+  const checkTodo = id => {
+    const copyTodoList = [...todoList];
+
+    // 찾은 할 일이 가져온 아이디와 일치여부 체크
+    const foundTodo = copyTodoList.find(todo => todo.id === id);
+    // console.log('founded: ', foundTodo);
+
+    foundTodo.done = !foundTodo.done;
+
+    setTodoList(copyTodoList);
+
+    // // 깔끔코드
+    // setTodoList(
+    //   todoList.map(todo => 
+    //     todo.id === id 
+    //     ? {...todo, done: !todo.done}
+    //     : todo
+    // ));
+  };
+
+
   return (
     <div className='TodoTemplate'>
       <TodoHeader />
-      <TodoMain todos={todoList} onRemove={removeTodo} />
+      <TodoMain 
+            todos={todoList} 
+            onRemove={removeTodo} 
+            onCheck={checkTodo} 
+      />
       <TodoInput onAdd={addTodo} />
     </div>
   );
