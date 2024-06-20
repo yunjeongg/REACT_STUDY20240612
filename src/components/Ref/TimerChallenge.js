@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
-let timer; // setTimeout 의 참조변수, 위치 전역으로 이동!
+// let timer; // setTimeout 의 참조변수, 위치 전역으로 이동!
 
 const TimerChallenge = ({ title, targetTime }) => {
+
+  // 해결방법
+  // timer 를 ref변수로 관리하기
+  // 랜더링이 아닌 컴포넌트 안의 값을 유지하고 싶을 때 사용할 수도 있다.
+  const timer = useRef();
+
 
   // 타이머가 시작되었는지를 확인하는 상태값
   const [timerStarted, setTimerStarted] = useState(false);
@@ -10,12 +16,10 @@ const TimerChallenge = ({ title, targetTime }) => {
   // 타겟시간이 종료되었는지 여부
   const [timerExpired, setTimerExpired] = useState(false);
 
-  // let timer; // setTimeout 의 참조변수
-
   const startHandler = e => {
 
     // 1. 지역변수 timer 저장
-    timer = setTimeout(() => {
+    timer.current = setTimeout(() => {
       setTimerExpired(true);
     }, targetTime * 1000);
 
@@ -28,12 +32,8 @@ const TimerChallenge = ({ title, targetTime }) => {
     console.log("stop");
 
     // 3. 서로 다른변수
-    clearTimeout(timer);
+    clearTimeout(timer.current);
 
-    // 전역변수로 timer 설정시 5초 -> 1초 -> 1초 -> 5초 를 연속으로 클릭해보면
-    // 5초짜리 timer 가 정상작동하지 않는 이유는
-    // 4rodml TimerChallenge 컴포넌트가 1개의 timer를 공유하여
-    // 처음 5초짜리 timer 가 1초짜리에 의해 덮어씌워지기 때문이다.
   }
 
   return (
