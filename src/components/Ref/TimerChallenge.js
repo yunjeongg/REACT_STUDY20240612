@@ -1,22 +1,20 @@
 import React from 'react';
+import Player from './components/Ref/Player';
+import TimerChallenge from './components/Ref/TimeChallenge';
 
-const TimerChallenge = () => {
+const App = () => {
+
   return (
-    <section className="challenge">
-      <h2>NOT EASY</h2>
-      <p className="challenge-time">
-        10 seconds
-      </p>
-      <p>
-        <button>
-          Start Challenge
-        </button>
-      </p>
-      <p className="">
-        Time is running... / Timer inactive
-      </p>
-    </section>
+    <>
+      <Player />
+      <div id="challenges">
+        <TimerChallenge title='Easy' targetTime={1} />
+        <TimerChallenge title='Not Easy' targetTime={5} />
+        <TimerChallenge title='Getting tough' targetTime={10} />
+        <TimerChallenge title='Pros only' targetTime={15} />
+      </div>
+    </>
   );
 };
 
-export default TimerChallenge;
+export default App;
