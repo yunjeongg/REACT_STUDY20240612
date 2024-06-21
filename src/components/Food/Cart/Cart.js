@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Cart.module.scss';
+import CartModal from './CartModal';
 
 const DUMMY_CART = [
   {
@@ -25,7 +26,7 @@ const Cart = () => {
   } = styles;
 
   return (
-    <>
+    <CartModal>
       {/* 주문 내역 */}
       <ul className={cartItemStyle}>
         {DUMMY_CART.map((cartItem) => (
@@ -40,8 +41,9 @@ const Cart = () => {
         <button className={btnAlt}>닫기</button>
         <button className={button}>주문</button>
       </div>
-    </>
+    </CartModal>
   );
 };
 
 export default Cart;
+
