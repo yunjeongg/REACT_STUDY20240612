@@ -6,6 +6,8 @@ import styles from './Header.module.scss';
 // import 변수명 from 사진경로
 import foodImage from '../../../assets/img/meals.jpg'
 
+import HeaderCartButton from './HeaderCartButton';
+
 const Header = () => {
   console.log(styles);
 
@@ -16,6 +18,7 @@ const Header = () => {
       <header className={styles.header}>
       {/* <header className='Header_header__u1k60'> */}
         <h1>ReactMeals</h1>
+        <HeaderCartButton />
       </header>
       <div className={mainImage}>
         <img src={foodImage} alt='맛있어보이는음식' />
