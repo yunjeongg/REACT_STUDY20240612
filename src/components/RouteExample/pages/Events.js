@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import EventsNavigation from '../layout/EventNavigation';
 import EventList from '../components/EventList';
 
@@ -40,18 +40,23 @@ import EventList from '../components/EventList';
 */
 const Events = () => {
 
+  // App.js 에서 loader 을 사용해서 useEffect, useState 사용하지 않을 수 있다.
   // 상태변수
-  const [eventList, setEventList] = useState([]);
+  // const [eventList, setEventList] = useState([]);
 
-  useEffect(() => {
-    // useEffect 에 직접적으로 async 를 적용할 수 없고, useEffec 안에 async 함수 따로 만들어야한다. 
-    (async () => {
-      const response = await fetch('http://localhost:8282/events');
-      const jsonData = await response.json();
-      setEventList(jsonData);
-    })();
-  ;
-  }, []);
+  // App.js 에서 loader 을 사용해서 useEffect
+  // useEffect(() => {
+  //   // useEffect 에 직접적으로 async 를 적용할 수 없고, useEffec 안에 async 함수 따로 만들어야한다. 
+  //   (async () => {
+  //     const response = await fetch('http://localhost:8282/events');
+  //     const jsonData = await response.json();
+  //     setEventList(jsonData);
+  //   })();
+  // ;
+  // }, []);
+
+  // loader 가 리턴한 데이터 받아오기
+  const eventList = useLoaderData();
 
   /*
   useEffect(() => {
