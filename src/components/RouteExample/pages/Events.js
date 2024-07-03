@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // const DUMMY_EVENTS = 
@@ -37,16 +37,29 @@ import { Link } from 'react-router-dom';
 }
 */
 const Events = () => {
+
+  // 상태변수
+  const [eventList, setEventList] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8282/events')
+    .then(res => res.json())
+    .then(jsonData => {
+      console.log(jsonData);
+      setEventList(jsonData); // 상태변수에 jsonData 추가 (상태변수 변경)
+  })
+  }, []); // useEffect 의 [] 안에 값을 넣으면, []변경이 일어날 때 마다 변경이 일어나고, []를 비워두면 단 한번만 변경이 일어남
+
   return (
     <>
       <h1>Events Page</h1>
       <ul>
         {
-          // DUMMY_EVENTS.map (e => (
-          //   <li key={e.id}>
-          //     <Link to={e.id}>{e.title}</Link>
-          //   </li>
-          // ))
+          eventList.map (e => (
+            <li key={e.id}>
+              <Link to={e.id}>{e.title}</Link>
+            </li>
+          ))
         }
       </ul>
     </>
