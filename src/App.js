@@ -8,6 +8,7 @@ import ErrorPage from './components/RouteExample/pages/ErrorPage';
 import ProductDetail from './components/RouteExample/pages/ProductDetail';
 import Events from './components/RouteExample/pages/Events';
 import EventDetail from './components/RouteExample/pages/EventDetail';
+import EventLayout from './components/RouteExample/layout/EventLayout';
 
 // 라우터 설정
 const router = createBrowserRouter
@@ -21,9 +22,14 @@ const router = createBrowserRouter
     children: 
     [
       { index: true, element: <Home /> }, // http://localhost:3000/events/
-      { path: 'events', element: <Events /> }, // http://localhost:3000/events
-      { path: 'events/:eventId', element: <EventDetail /> }, // http://localhost:3000/events/1
-
+      { // children 의 children
+        path: 'events',
+        element: <EventLayout />, 
+        children: [
+          { index: true, element: <Events /> }, // http://localhost:3000/events
+          { path: ':eventId', element: <EventDetail /> }, // http://localhost:3000/events/1
+        ]
+      },
     ]
   },
 ]);

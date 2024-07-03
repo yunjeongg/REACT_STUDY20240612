@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import EventsNavigation from '../layout/EventNavigation';
+import EventList from '../components/EventList';
 
 // const DUMMY_EVENTS = 
 // [
@@ -67,15 +69,7 @@ const Events = () => {
   return (
     <>
       <h1>Events Page</h1>
-      <ul>
-        {
-          eventList.map (e => (
-            <li key={e.id}>
-              <Link to={e.id}>{e.title}</Link>
-            </li>
-          ))
-        }
-      </ul>
+      <EventList eventList={eventList} />
     </>
   )
 }
