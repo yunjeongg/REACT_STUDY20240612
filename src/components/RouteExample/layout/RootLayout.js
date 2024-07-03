@@ -5,11 +5,8 @@ import { Outlet } from 'react-router-dom'
 const RootLayout = () => {
   return (
     <>
-      {/* 헤더부분은 그대로 고정한다. */}
       <MainNavigation />
-
-      {/* 바뀔 컴포넌트들 */}
-      {/* RootLayout의 children 들이 Outlet 으로 렌더링된다. */}
+      {/* RootLayout의 children들이 Outlet으로 렌더링됨 */}
       <main>
         <Outlet />
       </main>

@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 
 const EventList = ({ eventList }) => {
 
-  const { events, list, item, content} = styles;
+  // loader데이터는 loader를 선언한 페이지 밑에있는 하위컴포넌트 어디서든 사용가능
+  // const eventList = useLoaderData();
+
+  const {events, list, item, content} = styles;
+
   return (
     <div className={events}>
       <h1>All Events</h1>
@@ -12,17 +16,16 @@ const EventList = ({ eventList }) => {
         {
           eventList.map(ev => (
             <li key={ev.id} className={item}>
-              <Link to={ev.id.toString()}>  {/* 링크는 무조건 문자타입이 들어야한다. 숫자타입 들어가면 인식못함 */}
-                <img src={ev.image} alt={ev.title} />
+              <Link to={ev.id}>
+                <img src={ev['img-url']} alt={ev.title} />
                 <div className={content}>
                   <h2>{ev.title}</h2>
-                  <time>{ev.date}</time>
+                  <time>{ev.startDate}</time>
                 </div>
               </Link>
             </li>
           ))
         }
-
       </ul>
     </div>
   )
