@@ -1,6 +1,6 @@
 import React from 'react';
 import EventList from '../components/EventList';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, json } from 'react-router-dom';
 
 const Events = () => {
 
@@ -25,12 +25,19 @@ export const loader = async () => {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Response(
-      JSON.stringify({ message: errorText }),
-      {
-        status: response.status
-      }
+
+    // 리액트 돔에서 제공하는 json 을 사용했을 경우 JSON 을 파싱하는 부분을 작성하지 않아도 된다.
+    throw json(
+      { message: errorText },
+      {status: response.status}
     );
+
+    // throw new Response(
+    //   JSON.stringify({ message: errorText }),
+    //   {
+    //     status: response.status
+    //   }
+    // );
   } 
   return response; // ok일 경우 events[]
 };
