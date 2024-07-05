@@ -11,7 +11,7 @@ const EventItem = ({ event }) => { // event 객체를 전달받아 아래 파싱
 
   const { eventId : id } = useParams();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // const fetchDelete = async () => {
 
