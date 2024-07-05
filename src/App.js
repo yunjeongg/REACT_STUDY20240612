@@ -24,7 +24,8 @@ const router = createBrowserRouter([
           { 
             index: true, 
             element: <Events />,
-            loader: eventListLoader, // // 서버에 조회 데이터요청을 보낼 때 트리거
+            // loader: eventListLoader, // // 서버에 조회 데이터요청을 보낼 때 트리거
+            // loader는 랜더링초기 한번만 실행되기 때문에 페이지무한로딩시 로더를 사용불가, useState 사용한다.
           },
           { 
             path: ':eventId', 
