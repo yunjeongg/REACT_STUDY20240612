@@ -12,12 +12,24 @@ const Events = () => {
   // 서버에서 가져온 이벤트 목록
   const [events, setEvents] = useState([]);
 
+  // 로딩상태를 체크하는 상태변수
+  const [loading, setLoading] = useState(false); 
+
   // 서버로 목록 조회 요청보내기
   const loadEvents = async() => {
+
+    console.log('start loading...');
+    setLoading(true); // 로딩 중 true
+
+  
     const response = await fetch('http://localhost:8282/events/page/1?sort=date');
     const events = await response.json();
 
     setEvents(events);
+
+    // 로딩 끝나면 false
+    setLoading(false);
+    console.log('end loading...');
   };
 
   // 초기 이벤트 1페이지 목록 가져오기
@@ -29,7 +41,7 @@ const Events = () => {
   return (
     <>
       <EventList eventList={events} />
-      <EventSkeleton />
+      {loading && <EventSkeleton />}
     </>
   );
 };
