@@ -1,74 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { useLoaderData, useParams, useRouteLoaderData } from 'react-router-dom';
+import React from 'react';
+import { redirect, useLoaderData, useRouteLoaderData } from 'react-router-dom';
 import EventItem from '../components/EventItem';
 
 const EventDetail = () => {
+  // 사용범위가 본인컴포넌트와 그 하위 컴포넌트(children은 하위가 아님)
+  // const ev = useLoaderData(); // 자신의 loader를 불러옴
 
-  // 1.
-  // 사용범위가 본인 컴포넌트와 그 하위컴포넌트 (children은 하위가 아님)
-  // const ev = useLoaderData(); // 자신의 loader을 불러오기
-
-  // 2.
-  const ev = useRouteLoaderData('event-detail'); // 부모의 loader을 불러오는 훅, () 안에는 부모loader의 id를 작성해주기
-
-  // console.log('ev', ev);
+  const ev = useRouteLoaderData('event-detail'); // 부모의 loader를 불러오는 훅
 
   return <EventItem event={ev} />;
 };
-
-/*
-const EventDetail = () => {
-  const { eventId: id } = useParams(); // 라우터에서 주소에 붙은 :eventId 읽어 id 로 바꿈 (eventId: id)
-
-  const [ev, setEv] = useState({}); // 초기값 넣어주기
-
-  useEffect(() => {
-    // (function foo () {})(); // 즉시실행함수
-    // (() => {})();  // 즉시실행 화살표함수(이름없는함수로만들고싶을때)
-
-    (async() => {
-      const response = await fetch(`http://localhost:8282/events/${id}`);
-
-      const json = await response.json();
-      setEv(json);
-    })();
-  }, []);
-
-  // const data = useLoaderData();
-  // console.log('loader data: ', data);
-
-  return <EventItem event={ev} />;
-
-  // return ( 
-  //   <>
-  //     <h1>EventDetail Page</h1>
-  //     <p>{ev.title}</p>
-  //     <p>{ev.desc}</p>
-  //     <p>{ev['start-date']}</p>
-  //   </>
-  // );
-};
-
-*/
 
 export default EventDetail;
 
-export const loader = async ( { params }) => {
+export const loader = async ({ params }) => {
+  const { eventId: id } = params;
 
-  const {eventId: id} = params;
+  // console.log('abc: ', abc.params.eventId);
 
-  //console.log('abc:', abc.params.eventId); // 사용할 수 없는 useParams() 대신 Loader을 사용해 가져오기
-
-  // use 로 시작하는 함수인 리액트 훅은 컴포넌트 내부에서만 사용가능. (가져올 수 없다)
-  // const { eventId: id } = useParams(); 
+  // use로 시작하는 함수인 리액트 훅은 컴포넌트 내부에서만 사용가능
+  // const { eventId: id } = useParams();
   // const [ev, setEv] = useState({});
 
-  const response = await fetch(`http://localhost:8282/events/${id}`); // 문제점1. ${id} 사용불가
+  const response = await fetch(`http://localhost:8282/events/${id}`);
 
   if (!response.ok) {
-    // 예외처리도 해줘야 한다.
+    // ... 예외처리
   }
 
   return await response.json();
-  // setEv(json); // 문제점1. setEv 사용불가
-}
+  // console.log('json: ', json);
+};
+
+export const action = async ({ params }) => {
+
+  if (!window.confirm('정말 삭제하시겠습니까?')) return;
+
+  const response = await fetch(`http://localhost:8282/events/${params.eventId}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) { 
+    //...
+  }
+
+  return redirect('/events');
+};

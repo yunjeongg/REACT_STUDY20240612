@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './components/RouteExample/layout/RootLayout';
 import ErrorPage from './components/RouteExample/pages/ErrorPage';
 import Events, { loader as eventListLoader } from './components/RouteExample/pages/Events'; // { loader } 전체조회, loader 의 이름이 겹칠 때 이름변경 -> as 바꿀이름
-import EventDetail, { loader as eventDetailLoader } from './components/RouteExample/pages/EventDetail'; // { loader } 단일조회
+import EventDetail, { loader as eventDetailLoader, action as deleteAction } from './components/RouteExample/pages/EventDetail'; // { loader } 단일조회
 import EventLayout from './components/RouteExample/layout/EventLayout';
 import NewEvent, { action as saveAction} from './components/RouteExample/pages/NewEvent';
 import EditPage from './components/RouteExample/pages/EditPage';
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
             // 해결방법
             id: 'event-detail', // loader 에게 ID 부여하기
             children: [
-              { index: true, element: <EventDetail /> },
+              { index: true, element: <EventDetail />, action: deleteAction },
               { path: 'edit', element: <EditPage /> },
             ]
           },
