@@ -31,7 +31,15 @@ const Events = () => {
     const response = await fetch(`http://localhost:8282/events/page/${currentPage}?sort=date`);
     const events = await response.json();
 
-    setEvents(events);
+    const updatedEvents = [...events, ...loadEvents]; // 기존 게시글 로딩, 후 새로운 게시글 그 밑에 로딩
+    setEvents(updatedEvents);
+    setLoading(false);
+
+    // 로딩이 끝나면 페이지번호를 1 늘려놔야 한다.
+    setCurrentPage(prevPage => {prevPage + 1});
+    
+    console.log('end loading!!');
+    // setEvents(events);
 
     // 로딩 끝나면 false
     setLoading(false);
