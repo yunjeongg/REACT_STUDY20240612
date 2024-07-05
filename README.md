@@ -42,6 +42,9 @@ $ npm start
 5. React router 라이브러리
 - `$ npm install react-router-dom`
 
+5. 스크롤 스로틀용 라이브러리
+npm install lodash
+
 
 
 # Getting Started with Create React App

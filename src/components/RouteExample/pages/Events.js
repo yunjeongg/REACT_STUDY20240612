@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import EventList from '../components/EventList';
 import { useLoaderData, json } from 'react-router-dom';
 import EventSkeleton from '../components/EventSkeleton';
+import { debounce, throttle } from 'lodash'; // npm install loadsh
+// import { throttle } from 'lodash';
 
 const Events = () => {
 
@@ -15,6 +17,9 @@ const Events = () => {
   // 로딩상태를 체크하는 상태변수
   const [loading, setLoading] = useState(false); 
 
+  // 현재 페이지 번호
+  const [currentPage, setCurrentPage] = useState(1); // 페이지의 초기값 1
+
   // 서버로 목록 조회 요청보내기
   const loadEvents = async() => {
 
@@ -22,7 +27,8 @@ const Events = () => {
     setLoading(true); // 로딩 중 true
 
   
-    const response = await fetch('http://localhost:8282/events/page/1?sort=date');
+    // useEffect 가 다시 실행될 때 마다 fetch 가 일어나야 한다.
+    const response = await fetch(`http://localhost:8282/events/page/${currentPage}?sort=date`);
     const events = await response.json();
 
     setEvents(events);
@@ -37,6 +43,34 @@ const Events = () => {
     loadEvents();
   }, []);
 
+  // 스크롤 핸들러
+  // // 1. 디바운싱 (스크롤 멈춘 후 일정 초(2초) 이후 재로딩)
+  // const scrollHandler = debounce(() => {
+  //   console.log('scroll');
+  // }, 2000);
+
+  // 2. 스로틀링 (스크롤을 돌리던 말던 일정시간에 한번씩 재로딩)
+  const scrollHandler = throttle(() => {
+    // console.log('scroll');
+
+    // 로딩중이거나, 화면의 맨 밑바닥이라면 return
+    if(loading || window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
+      return;
+    }
+    loadEvents();
+  }, 2000);
+
+  // 스로틀링
+  // 처음한번만실행되도록 useEffect
+  useEffect(()=> {
+    window.addEventListener('scroll', scrollHandler);
+
+    // 이벤트 끝난 후 이벤트를 지워줘야한다.
+    return () => {
+      window.removeEventListener('scroll', scrollHandler);
+      scrollHandler.cancel(); // 스로틀 취소
+    }
+  }, [currentPage, loading]); // 밑바닥이 아니면 다시 실행
 
   return (
     <>
