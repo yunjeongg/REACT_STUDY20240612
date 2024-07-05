@@ -20,8 +20,16 @@ const Events = () => {
   // 현재 페이지 번호
   const [currentPage, setCurrentPage] = useState(1); // 페이지의 초기값 1
 
+  // 더 이상 가져올 데이터가 있는지 확인하기
+  const [isFinish, setIsFinish] = useState(false);
+
   // 서버로 목록 조회 요청보내기
   const loadEvents = async() => {
+
+    if (isFinish) {
+      console.log('loading finished!');
+      return;
+    }
 
     console.log('start loading...');
     setLoading(true); // 로딩 중 true
@@ -29,17 +37,22 @@ const Events = () => {
   
     // useEffect 가 다시 실행될 때 마다 fetch 가 일어나야 한다.
     const response = await fetch(`http://localhost:8282/events/page/${currentPage}?sort=date`);
-    const events = await response.json();
+    
+    const { events: loadedEvents, totalCount } = await response.json();
 
-    const updatedEvents = [...events, ...loadEvents]; // 기존 게시글 로딩, 후 새로운 게시글 그 밑에 로딩
+    // console.log('loaded: ', loadedEvents);
+
+    const updatedEvents = [...events, ...loadedEvents]; // 기존 게시글 로딩, 후 새로운 게시글 그 밑에 로딩
     setEvents(updatedEvents);
     setLoading(false);
 
     // 로딩이 끝나면 페이지번호를 1 늘려놔야 한다.
-    setCurrentPage(prevPage => {prevPage + 1});
-    
+    setCurrentPage(prevPage => prevPage + 1);
     console.log('end loading!!');
     // setEvents(events);
+
+    // 로딩이 끝나면 더 이상 가져올게 있는지 여부를 체크하기
+    setIsFinish(totalCount === updatedEvents.length);
 
     // 로딩 끝나면 false
     setLoading(false);
