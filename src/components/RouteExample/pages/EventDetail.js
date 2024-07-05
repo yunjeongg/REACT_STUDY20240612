@@ -11,6 +11,8 @@ const EventDetail = () => {
   // 2.
   const ev = useRouteLoaderData('event-detail'); // 부모의 loader을 불러오는 훅, () 안에는 부모loader의 id를 작성해주기
 
+  // console.log('ev', ev);
+
   return <EventItem event={ev} />;
 };
 
