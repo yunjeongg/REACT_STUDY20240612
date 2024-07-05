@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from './EventForm.module.scss';
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Form } from "react-router-dom";
 
 const EventForm = ({ method, event={} }) => {
 
@@ -42,44 +42,50 @@ const EventForm = ({ method, event={} }) => {
     // 해결방법 - useNavigate 사용하기
     // navigate('/events/' + id); // 이걸 줄여서 아래처럼 작성가능
     navigate('..');
-  }
-
-  const submitHandler = e => {
-    e.preventDefault();
-
-    // input 에 입력한 값 가져오기
-    // useState, useRef
-    // 3번째 방법
-    const formData = new FormData(e.target);
-    // console.log('form:', formData);
-    // console.log('form:', formData.get('title')); // 태그의 name 속성값을 넣기
-
-    // 서버에 보낼 데이터
-    const payload = {
-      title: formData.get('title'),
-      desc: formData.get('description'),
-      imageUrl: formData.get('image'),
-      beginDate: formData.get('date')
-    };
-
-    // console.log('payload: ', payload);
-
-    // 서버로 페칭
-    (async () => {
-      const response = await fetch(`http://localhost:8282/events`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      navigate('/events');
-    })();
   };
 
+  // const submitHandler = e => {
+  //   e.preventDefault();
+
+  //   // input 에 입력한 값 가져오기
+  //   // useState, useRef
+  //   // 3번째 방법
+  //   const formData = new FormData(e.target);
+  //   // console.log('form:', formData);
+  //   // console.log('form:', formData.get('title')); // 태그의 name 속성값을 넣기
+
+  //   // 서버에 보낼 데이터
+  //   const payload = {
+  //     title: formData.get('title'),
+  //     desc: formData.get('description'),
+  //     imageUrl: formData.get('image'),
+  //     beginDate: formData.get('date')
+  //   };
+
+  //   // console.log('payload: ', payload);
+
+  //   // 서버로 페칭
+  //   (async () => {
+  //     const response = await fetch(`http://localhost:8282/events`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(payload)
+  //     });
+
+  //     navigate('/events');
+  //   })();
+  // };
+
+  // 2. action함수를 트리거하려면 일반 form을 사용하면 안되고
+  //    react-router-dom에서 제공하는 Form 이라는 컴포넌트를 사용한다.
+  // 3. method 옵션을 설정한다.
   return (
-    <form className={styles.form} onSubmit={submitHandler} noValidate>
+    <Form method="post"
+          className={styles.form} 
+                            // onSubmit={submitHandler} 
+                                              noValidate>
       <p>
         <label htmlFor="title">Title</label>
         <input
@@ -129,7 +135,7 @@ const EventForm = ({ method, event={} }) => {
         </button>
         <button>{method === 'post' ? 'Save' : 'Modify'}</button>
       </div>
-    </form>
+    </Form>
   );
 };
 

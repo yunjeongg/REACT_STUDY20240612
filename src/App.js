@@ -6,9 +6,8 @@ import ErrorPage from './components/RouteExample/pages/ErrorPage';
 import Events, { loader as eventListLoader } from './components/RouteExample/pages/Events'; // { loader } 전체조회, loader 의 이름이 겹칠 때 이름변경 -> as 바꿀이름
 import EventDetail, { loader as eventDetailLoader } from './components/RouteExample/pages/EventDetail'; // { loader } 단일조회
 import EventLayout from './components/RouteExample/layout/EventLayout';
-import NewEvent from './components/RouteExample/pages/NewEvent';
+import NewEvent, { action as saveAction} from './components/RouteExample/pages/NewEvent';
 import EditPage from './components/RouteExample/pages/EditPage';
-
 
 // 라우터 설정
 const router = createBrowserRouter([
@@ -24,7 +23,7 @@ const router = createBrowserRouter([
           { 
             index: true, 
             element: <Events />,
-            loader: eventListLoader,
+            loader: eventListLoader, // // 서버에 조회 데이터요청을 보낼 때 트리거
           },
           { 
             path: ':eventId', 
@@ -38,7 +37,11 @@ const router = createBrowserRouter([
               { path: 'edit', element: <EditPage /> },
             ]
           },
-          { path: 'new', element: <NewEvent /> },
+          { path: 'new', 
+            element: <NewEvent />,
+            // 서버에 갱신 데이터요청을 보낼 때 트리거
+            action: saveAction
+          },
         ]
       },
     ]
