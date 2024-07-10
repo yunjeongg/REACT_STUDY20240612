@@ -34,7 +34,7 @@ export const loader = async ({ params }) => {
 
 export const action = async ({ params }) => {
 
-  if (!window.confirm('정말 삭제하시겠습니까?')) return;
+  // if (!window.confirm('정말 삭제하시겠습니까?')) return;
 
   const response = await fetch(`http://localhost:8282/events/${params.eventId}`, {
     method: 'DELETE',

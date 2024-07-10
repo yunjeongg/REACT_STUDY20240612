@@ -23,7 +23,7 @@ const EventItem = ({ event }) => { // event 객체를 전달받아 아래 파싱
 
   const deleteHandler =  (e) => {
 
-    // if (!window.confirm('정말 삭제하시겠습니까?')) return;
+    if (!window.confirm('정말 삭제하시겠습니까?')) return;
 
     // action 을 트리거
     submit(null, {method: "DELETE"});
